@@ -1,0 +1,30 @@
+
+version: '3'
+services:
+  contacts_database:
+    image: postgres:latest
+    container_name: contact_database
+    ports:
+      - 5433:5432
+    restart: on-failure
+    environment:
+      POSTGRES_USER: contact_user
+      POSTGRES_PASSWORD: contact_password
+      POSTGRES_DB: contact_db
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  backend:
+    container_name: backend
+    image: eclipse-temurin:19-jdk-jammy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://contact_database:5432/contact_db
+      SPRING_DATASOURCE_USERNAME: contact_user
+      SPRING_DATASOURCE_PASSWORD: contactpassword
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./jars:/app
+    working_dir: /app
+    command: java -jar backend.jar
+    depends_on:
+      - contact_database
