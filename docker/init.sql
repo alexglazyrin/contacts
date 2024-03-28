@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS contact_schema.contact
     last_name VARCHAR(127) NOT NULL,
     email VARCHAR(127) NOT NULL,
     phone BIGINT NOT NULL
-)
+);

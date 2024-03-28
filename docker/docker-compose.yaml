@@ -1,8 +1,8 @@
 
 version: '3'
 services:
-  contacts_database:
-    image: postgres:latest
+  contact_database:
+    image: postgres:12.3
     container_name: contact_database
     ports:
       - 5433:5432
@@ -15,13 +15,13 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   backend:
     container_name: backend
-    image: eclipse-temurin:19-jdk-jammy
+    image: bellsoft/liberica-openjdk-alpine
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://contact_database:5432/contact_db
       SPRING_DATASOURCE_USERNAME: contact_user
-      SPRING_DATASOURCE_PASSWORD: contactpassword
+      SPRING_DATASOURCE_PASSWORD: contact_password
     ports:
-      - "8081:8081"
+      - "8082:8082"
     volumes:
       - ./jars:/app
     working_dir: /app
