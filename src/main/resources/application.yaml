@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/contact_db
+    url: jdbc:postgresql://localhost:5433/contact_db
     username: contact_user
     password: contact_password
     hikari:
